@@ -21,11 +21,28 @@ export default function reducer(state = initialState, action){
       }
     case CHECK_START:
       return {
-
+        ...state,
+        todo: state.todo.map((item) => {
+          if (item.id === action.payload) {
+            return {
+              ...item,
+              checking: true
+            }
+          }
+        })
       }
     case CHECK_SUCCESS:
       return {
-
+        ...state,
+        todo: state.data.map((item) => {
+          if (item.id === action.payload) {
+            return{
+              ...item,
+              completed: !item.completed,
+              checking: false
+            }
+          } return item;
+        })
       }
     case REMOVE_START:
       return {
@@ -60,5 +77,17 @@ export const checkTodo = (id,completed) => {
       type: CHECK_START,
       payload:id,
     });
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({completed: !completed}),
+      headers: {"content-type": "application/json"}
+    })
+      .then((response) => response.json())
+      .then(() => {
+        dispatch({
+          type: CHECK_SUCCESS,
+          payload: id
+        })
+      })
   }
 }
