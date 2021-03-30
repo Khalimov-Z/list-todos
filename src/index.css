@@ -1,0 +1,33 @@
+.theme{
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+
+}
+body {
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
+.main-content {
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    color: var(--text-color);
+}
+:root {
+    --dark-background-color: #111111;
+    --dark-text-color: #eeeeee;
+}
+
+body.theme-dark {
+    --background-color: var(--dark-background-color);
+    --text-color: var(--dark-text-color);
+}
+@media (prefers-color-scheme: dark) {
+    body.theme-auto {
+        --background-color: var(--dark-background-color);
+        --text-color: var(--dark-text-color);
+    }
+}

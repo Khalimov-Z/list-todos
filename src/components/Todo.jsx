@@ -9,15 +9,24 @@ function Todo (props) {
   }
 
   return (
-    <div>
+    <div className="list-group-item
+     list-group-item-action
+     align-items-center
+     d-flex
+     justify-content-sm-between
+     list-group-item-secondary
+     mb-2 "
+    >
       <input
       type="checkbox"
       checked={props.todo.completed}
       onChange={() => todoChecking(props.todo.id, props.todo.completed)}
     />
-      <div>{props.todo.title}</div>
-      <div>
-        <button>delete</button>
+      <div className="flex-grow-1 pl-3 pr-3 text-dark navbar-brand text-truncate">
+        {props.todo.title}
+      </div>
+      <div >
+        <button className="btn-light pt-0 pb-0 ">delete</button>
       </div>
 
     </div>
