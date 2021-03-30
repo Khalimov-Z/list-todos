@@ -22,10 +22,10 @@ export default function reducer(state = initialState, action){
     case CHECK_START:
       return {
         ...state,
-        todo: state.todo.map((item) => {
-          if (item.id === action.payload) {
+        items: state.items.map((todo) => {
+          if (todo.id === action.payload) {
             return {
-              ...item,
+              ...todo,
               checking: true
             }
           }
@@ -34,14 +34,15 @@ export default function reducer(state = initialState, action){
     case CHECK_SUCCESS:
       return {
         ...state,
-        todo: state.data.map((item) => {
-          if (item.id === action.payload) {
+        items: state.items.map((todo) => {
+          if (todo.id === action.payload) {
             return{
-              ...item,
-              completed: !item.completed,
-              checking: false
-            }
-          } return item;
+              ...todo,
+              completed: !todo.completed,
+              checking: false,
+            };
+          }
+          return todo;
         })
       }
     case REMOVE_START:

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { checkTodo } from '../redux/todos'
 
 function Todo (props) {
   const dispatch = useDispatch();
@@ -9,13 +10,16 @@ function Todo (props) {
 
   return (
     <div>
-      <div>{props.todo.title}</div>
       <input
-        type="checkbox"
-        checked={props.todo.completed}
-        onChange={() => todoChecking(props.todo.id)}
-      />
-      <button>Click</button>
+      type="checkbox"
+      checked={props.todo.completed}
+      onChange={() => todoChecking(props.todo.id, props.todo.completed)}
+    />
+      <div>{props.todo.title}</div>
+      <div>
+        <button>delete</button>
+      </div>
+
     </div>
   )
 }
