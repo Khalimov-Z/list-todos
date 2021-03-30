@@ -13,11 +13,14 @@ export default function reducer(state = initialState, action){
   switch (action.type){
     case LOAD_START:
       return{
-
+        ...state,
+        loading: true,
       }
     case LOAD_SUCCESS:
       return {
-
+        ...state,
+        loading: false,
+        items: action.payload,
       }
     case CHECK_START:
       return {
@@ -63,6 +66,12 @@ export const loadTodos = () => {
     dispatch({
       type:LOAD_START
     });
+
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => response.json())
+      .then(json => {
+        dispatch({ type: LOAD_SUCCESS, payload: json})
+      })
   }
 }
 export const removeTodo = (id) => {
