@@ -5,8 +5,8 @@ import { loadTodos } from "../redux/todos";
 
 function Todos(props) {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.items);
-  const loading = useSelector((state) => state.todos.loading);
+  const todos = useSelector((state) => state.items);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     dispatch(loadTodos());
