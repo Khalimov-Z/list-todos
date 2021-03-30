@@ -5,15 +5,15 @@ import { loadTodos } from "../redux/todos";
 
 function Todos(props) {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.items);
-  const loading = useSelector((state) => state.loading);
+  const todos = useSelector((state) => state.todos.items);
+  const loading = useSelector((state) => state.todos.loading);
 
   useEffect(() => {
     dispatch(loadTodos());
   }, [dispatch]);
 
   return (
-    <div className="list-group">
+    <div>
       {loading
         ? "идет загрузка..."
         : todos.map((todo) => {
