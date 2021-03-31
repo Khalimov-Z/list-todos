@@ -32,6 +32,7 @@ export default function reducer(state = initialState, action){
               checking: true
             }
           }
+          return todo;
         })
       }
     case CHECK_SUCCESS:
