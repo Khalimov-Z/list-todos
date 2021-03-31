@@ -48,14 +48,31 @@ export default function reducer(state = initialState, action){
           return todo;
         })
       }
-    case REMOVE_START:
-      return {
+      case REMOVE_START:
+        return {
+          ...state,
+          items: state.items.map(item => {
+            if(item.id === action.payload) {
+              return {
+                ...item,
+                deleting: true,
+              };
+            }
+            return item;
+          })
+        }
+      case REMOVE_SUCCESS:
+        return {
+          ...state, 
+          items: state.items.filter(item => {
+            if (item.id === action.payload) {
+              return false
+            }
+            return true
+          })
+        }
+  
 
-      }
-    case REMOVE_SUCCESS:
-      return {
-
-      }
 
     default:
       return state;
@@ -77,10 +94,22 @@ export const loadTodos = () => {
 export const removeTodo = (id) => {
   return (dispatch) => {
     dispatch({
-      type: REMOVE_START
+      type: REMOVE_START,
+      payload: id
     });
+    fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(() => {
+            dispatch ({
+                type: REMOVE_SUCCESS,
+                payload: id
+            })
+        })
   }
 }
+
 export const checkTodo = (id,completed) => {
   return (dispatch) => {
     dispatch({

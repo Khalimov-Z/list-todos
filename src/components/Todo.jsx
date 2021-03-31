@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { checkTodo } from '../redux/todos'
+import Button from './Button';
 
 function Todo (props) {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function Todo (props) {
     />
       <div>{props.todo.title}</div>
       <div>
-        <button>delete</button>
+        <Button todo={props.todo}/>
       </div>
 
     </div>
