@@ -9,19 +9,19 @@ const initialState = {
   loading: false,
 };
 
-export default function reducer(state = initialState, action){
-  switch (action.type){
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case LOAD_START:
-      return{
+      return {
         ...state,
         loading: true,
-      }
+      };
     case LOAD_SUCCESS:
       return {
         ...state,
         loading: false,
         items: action.payload,
-      }
+      };
     case CHECK_START:
       return {
         ...state,
@@ -29,51 +29,49 @@ export default function reducer(state = initialState, action){
           if (todo.id === action.payload) {
             return {
               ...todo,
-              checking: true
-            }
+              checking: true,
+            };
           }
           return todo;
-        })
-      }
+        }),
+      };
     case CHECK_SUCCESS:
       return {
         ...state,
         items: state.items.map((todo) => {
           if (todo.id === action.payload) {
-            return{
+            return {
               ...todo,
               completed: !todo.completed,
               checking: false,
             };
           }
           return todo;
-        })
-      }
-      case REMOVE_START:
-        return {
-          ...state,
-          items: state.items.map(item => {
-            if(item.id === action.payload) {
-              return {
-                ...item,
-                deleting: true,
-              };
-            }
-            return item;
-          })
-        }
-      case REMOVE_SUCCESS:
-        return {
-          ...state, 
-          items: state.items.filter(item => {
-            if (item.id === action.payload) {
-              return false
-            }
-            return true
-          })
-        }
-  
-
+        }),
+      };
+    case REMOVE_START:
+      return {
+        ...state,
+        items: state.items.map((item) => {
+          if (item.id === action.payload) {
+            return {
+              ...item,
+              deleting: true,
+            };
+          }
+          return item;
+        }),
+      };
+    case REMOVE_SUCCESS:
+      return {
+        ...state,
+        items: state.items.filter((item) => {
+          if (item.id === action.payload) {
+            return false;
+          }
+          return true;
+        }),
+      };
 
     default:
       return state;
@@ -82,52 +80,52 @@ export default function reducer(state = initialState, action){
 export const loadTodos = () => {
   return (dispatch) => {
     dispatch({
-      type:LOAD_START
+      type: LOAD_START,
     });
 
     fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json())
-      .then(json => {
-        dispatch({ type: LOAD_SUCCESS, payload: json})
-      })
-  }
-}
+      .then((response) => response.json())
+      .then((json) => {
+        dispatch({ type: LOAD_SUCCESS, payload: json });
+      });
+  };
+};
 export const removeTodo = (id) => {
   return (dispatch) => {
     dispatch({
       type: REMOVE_START,
-      payload: id
+      payload: id,
     });
-    fetch(`https://jsonplaceholder.typicode.com/todos${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(() => {
-            dispatch ({
-                type: REMOVE_SUCCESS,
-                payload: id
-            })
-        })
-  }
-}
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then(() => {
+        dispatch({
+          type: REMOVE_SUCCESS,
+          payload: id,
+        });
+      });
+  };
+};
 
-export const checkTodo = (id,completed) => {
+export const checkTodo = (id, completed) => {
   return (dispatch) => {
     dispatch({
       type: CHECK_START,
-      payload:id,
+      payload: id,
     });
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({completed: !completed}),
-      headers: {"content-type": "application/json"}
+      method: 'PATCH',
+      body: JSON.stringify({ completed: !completed }),
+      headers: { 'content-type': 'application/json' },
     })
       .then((response) => response.json())
       .then(() => {
         dispatch({
           type: CHECK_SUCCESS,
-          payload: id
-        })
-      })
-  }
-}
+          payload: id,
+        });
+      });
+  };
+};

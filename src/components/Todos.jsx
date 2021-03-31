@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import Todo from "./Todo";
-import { useDispatch, useSelector } from "react-redux";
-import { loadTodos } from "../redux/todos";
+import React, { useEffect } from 'react';
+import Todo from './Todo';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadTodos } from '../redux/todos';
 
 function Todos(props) {
   const dispatch = useDispatch();
@@ -15,10 +15,10 @@ function Todos(props) {
   return (
     <div>
       {loading
-        ? "идет загрузка..."
+        ? 'идет загрузка...'
         : todos.map((todo) => {
-          return <Todo key={todo.id} todo={todo} />;
-        })}
+            return <Todo key={todo.id} todo={todo} />;
+          })}
     </div>
   );
 }
