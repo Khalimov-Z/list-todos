@@ -12,7 +12,7 @@ function Button(props) {
         onClick={() => handleDeleteTodo(props.todo.id)}
         disabled={props.todo.deleting}
       >
-        DELETE
+        delete
       </button>
     </div>
   );
