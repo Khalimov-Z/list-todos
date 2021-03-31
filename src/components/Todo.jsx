@@ -11,7 +11,15 @@ function Todo(props) {
   };
 
   return (
-    <div>
+    <div
+      className="list-group-item
+     list-group-item-action
+     align-items-center
+     d-flex
+     justify-content-sm-between
+     list-group-item-secondary
+     mb-2 "
+    >
       {props.todo.checking ? (
         <ReactLoading type="spin" color="blue" height={16} width={16} />
       ) : (
@@ -22,7 +30,9 @@ function Todo(props) {
         />
       )}
 
-      <div>{props.todo.title}</div>
+      <div className="flex-grow-1 pl-3 pr-3 text-dark navbar-brand text-truncate">
+        {props.todo.title}
+      </div>
       <div>
         <Button todo={props.todo} />
       </div>

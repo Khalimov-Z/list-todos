@@ -7,8 +7,9 @@ function Button(props) {
     dispatch(removeTodo(id));
   };
   return (
-    <div className="button">
+    <div>
       <button
+        className="btn-light pt-0 pb-0 "
         onClick={() => handleDeleteTodo(props.todo.id)}
         disabled={props.todo.deleting}
       >
